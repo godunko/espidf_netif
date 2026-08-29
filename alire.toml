@@ -1,5 +1,6 @@
 name = "espidf_netif"
 description = "Ada/ESP-IDF NETIF bindings"
+website = "https://github.com/godunko/espidf_netif"
 version = "0.1.0-dev"
 long-description = """
 Ada bindings for the ESP-IDF Network Interface (NETIF) module, providing high-level networking support for Espressif microcontrollers.
