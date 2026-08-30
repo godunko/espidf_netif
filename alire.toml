@@ -19,4 +19,4 @@ generate_gpr = true
 
 [[depends-on]]
 a0b_base = "*"
-espidf = "*"
+espidf_event = "*"
