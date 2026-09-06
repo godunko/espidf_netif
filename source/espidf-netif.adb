@@ -8,6 +8,17 @@ with ESPIDF.Ada_ESP_Check_Error;
 
 package body ESPIDF.NETIF is
 
+   ---------------------------
+   -- esp_netif_get_ip_info --
+   ---------------------------
+
+   procedure esp_netif_get_ip_info
+     (netif   : esp_netif_t_ptr;
+      ip_info : out esp_netif_ip_info_t) is
+   begin
+      Ada_ESP_Check_Error (esp_netif_get_ip_info (netif, ip_info));
+   end esp_netif_get_ip_info;
+
    --------------------
    -- esp_netif_init --
    --------------------

@@ -4,6 +4,8 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
+with A0B.Types.Big_Endian;
+
 with ESPIDF.Event;
 
 package ESPIDF.NETIF is
@@ -11,6 +13,16 @@ package ESPIDF.NETIF is
    type esp_netif_t is limited private;
 
    type esp_netif_t_ptr is access all esp_netif_t with Convention => C;
+
+   type esp_ip4_addr_t is record
+      addr : A0B.Types.Big_Endian.Unsigned_32;
+   end record with Convention => C;
+
+   type esp_netif_ip_info_t is record
+      ip      : esp_ip4_addr_t;
+      netmask : esp_ip4_addr_t;
+      gw      : esp_ip4_addr_t;
+   end record with Convention => C;
 
    IP_EVENT : constant ESPIDF.Event.esp_event_base_t
      with Import, Convention => C, External_Name => "IP_EVENT";
@@ -31,6 +43,15 @@ package ESPIDF.NETIF is
      with Import, Convention => C, External_Name => "esp_netif_init";
 
    procedure esp_netif_init;
+
+   function esp_netif_get_ip_info
+     (netif   : esp_netif_t_ptr;
+      ip_info : out esp_netif_ip_info_t) return esp_err_t
+     with Import, Convention => C, External_Name => "esp_netif_get_ip_info";
+
+   procedure esp_netif_get_ip_info
+     (netif   : esp_netif_t_ptr;
+      ip_info : out esp_netif_ip_info_t);
 
 private
 
