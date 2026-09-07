@@ -97,6 +97,14 @@ package ESPIDF.NETIF is
       opt_val   : System.Address;
       opt_len   : uint32_t);
 
+   function esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI
+     (esp_netif : esp_netif_t_ptr;
+      opt_val   : ESPIDF.C_Strings.const_char_ptr) return esp_err_t;
+
+   procedure esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI
+     (esp_netif : esp_netif_t_ptr;
+      opt_val   : ESPIDF.C_Strings.const_char_ptr);
+
 private
 
    type esp_netif_t is limited null record with Convention => C;

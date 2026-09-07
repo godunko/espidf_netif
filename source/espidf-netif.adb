@@ -24,6 +24,40 @@ package body ESPIDF.NETIF is
            (esp_netif, opt_op, opt_id, opt_val, opt_len));
    end esp_netif_dhcps_option;
 
+   --------------------------------------------------
+   -- esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI --
+   --------------------------------------------------
+
+   function esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI
+     (esp_netif : esp_netif_t_ptr;
+      opt_val   : ESPIDF.C_Strings.const_char_ptr) return esp_err_t is
+   begin
+      return
+        esp_netif_dhcps_option
+          (esp_netif,
+           ESP_NETIF_OP_SET,
+           ESP_NETIF_CAPTIVEPORTAL_URI,
+           opt_val.all'Address,
+           ESPIDF.C_Strings.Length (opt_val));
+   end esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI;
+
+   --------------------------------------------------
+   -- esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI --
+   --------------------------------------------------
+
+   procedure esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI
+     (esp_netif : esp_netif_t_ptr;
+      opt_val   : ESPIDF.C_Strings.const_char_ptr) is
+   begin
+      Ada_ESP_Check_Error
+        (esp_netif_dhcps_option
+           (esp_netif,
+            ESP_NETIF_OP_SET,
+            ESP_NETIF_CAPTIVEPORTAL_URI,
+            opt_val.all'Address,
+            ESPIDF.C_Strings.Length (opt_val)));
+   end esp_netif_dhcps_option_SET_CAPTIVEPORTAL_URI;
+
    ---------------------------
    -- esp_netif_get_ip_info --
    ---------------------------
