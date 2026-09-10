@@ -6,6 +6,7 @@
 
 pragma Ada_2022;
 
+with System;
 private with System.Storage_Elements;
 
 package ESPIDF.Sockets is
@@ -38,6 +39,8 @@ package ESPIDF.Sockets is
 
    type in_port_t is new Interfaces.Unsigned_16 with Convention => C;
 
+   type socklen_t is new int with Convention => C;
+
    type sockaddr is limited private;
 
    procedure Set
@@ -59,6 +62,19 @@ package ESPIDF.Sockets is
    function bind
      (Socket  : Socket_Descriptor;
       Address : sockaddr) return int;
+
+   function recvfrom
+     (socket  : Socket_Descriptor;
+      buffer  : System.Address;
+      length  : size_t;
+      flags   : int;
+      from    : aliased out sockaddr) return ssize_t;
+
+   function recvfrom
+     (socket  : Socket_Descriptor;
+      buffer  : System.Address;
+      length  : size_t;
+      flags   : int) return ssize_t;
 
 private
 

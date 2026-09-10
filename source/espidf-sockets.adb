@@ -6,7 +6,14 @@
 
 package body ESPIDF.Sockets is
 
-   type socklen_t is new int with Convention => C;
+   function lwip_recvfrom
+     (socket  : Socket_Descriptor;
+      buffer  : System.Address;
+      length  : size_t;
+      flags   : int;
+      from    : access sockaddr;
+      fromlen : access socklen_t) return ssize_t
+     with Import, Convention => C, External_Name => "lwip_recvfrom";
 
    ----------
    -- bind --
@@ -25,6 +32,38 @@ package body ESPIDF.Sockets is
    begin
       return Internal (Socket, Address, socklen_t (sizeof_sockaddr_storage));
    end bind;
+
+   --------------
+   -- recvfrom --
+   --------------
+
+   function recvfrom
+     (socket  : Socket_Descriptor;
+      buffer  : System.Address;
+      length  : size_t;
+      flags   : int;
+      from    : aliased out sockaddr) return ssize_t
+   is
+      fromlen : aliased socklen_t := socklen_t (sizeof_sockaddr_storage);
+
+   begin
+      return
+        lwip_recvfrom
+          (socket, buffer, length, flags, from'Access, fromlen'Access);
+   end recvfrom;
+
+   --------------
+   -- recvfrom --
+   --------------
+
+   function recvfrom
+     (socket  : Socket_Descriptor;
+      buffer  : System.Address;
+      length  : size_t;
+      flags   : int) return ssize_t is
+   begin
+      return lwip_recvfrom (socket, buffer, length, flags, null, null);
+   end recvfrom;
 
    ---------
    -- Set --
