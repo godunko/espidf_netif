@@ -6,6 +6,26 @@
 
 package body ESPIDF.Sockets is
 
+   type socklen_t is new int with Convention => C;
+
+   ----------
+   -- bind --
+   ----------
+
+   function bind
+     (Socket  : Socket_Descriptor;
+      Address : sockaddr) return int
+   is
+      function Internal
+        (sockfd  : Socket_Descriptor;
+         addr    : sockaddr;
+         addrlen : socklen_t) return int
+        with Import, Convention => C, External_Name => "lwip_bind";
+
+   begin
+      return Internal (Socket, Address, socklen_t (sizeof_sockaddr_storage));
+   end bind;
+
    ---------
    -- Set --
    ---------

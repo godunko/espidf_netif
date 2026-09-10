@@ -34,6 +34,8 @@ package ESPIDF.Sockets is
    function IPPROTO_RAW     return Socket_Protocol is (255);
 
    type in_addr_t is new Interfaces.Unsigned_32 with Convention => C;
+   INADDR_ANY : constant in_addr_t := 0;
+
    type in_port_t is new Interfaces.Unsigned_16 with Convention => C;
 
    type sockaddr is limited private;
@@ -53,6 +55,10 @@ package ESPIDF.Sockets is
       Socket_Protocol : ESPIDF.Sockets.Socket_Protocol)
       return Socket_Descriptor
      with Import, Convention => C, External_Name => "lwip_socket";
+
+   function bind
+     (Socket  : Socket_Descriptor;
+      Address : sockaddr) return int;
 
 private
 
