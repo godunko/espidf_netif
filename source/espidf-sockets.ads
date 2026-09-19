@@ -76,6 +76,13 @@ package ESPIDF.Sockets is
       length  : size_t;
       flags   : int) return ssize_t;
 
+   function sendto
+     (socket : Socket_Descriptor;
+      buffer : System.Address;
+      length : size_t;
+      flags  : int;
+      to     : sockaddr) return ssize_t;
+
 private
 
    sizeof_sockaddr_storage : constant int

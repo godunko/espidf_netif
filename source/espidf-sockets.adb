@@ -15,6 +15,15 @@ package body ESPIDF.Sockets is
       fromlen : access socklen_t) return ssize_t
      with Import, Convention => C, External_Name => "lwip_recvfrom";
 
+   function lwip_sendto
+     (socket : Socket_Descriptor;
+      buffer : System.Address;
+      length : size_t;
+      flags  : int;
+      to     : sockaddr;
+      tolen  : socklen_t) return ssize_t
+     with Import, Convention => C, External_Name => "lwip_sendto";
+
    ----------
    -- bind --
    ----------
@@ -64,6 +73,27 @@ package body ESPIDF.Sockets is
    begin
       return lwip_recvfrom (socket, buffer, length, flags, null, null);
    end recvfrom;
+
+   ------------
+   -- sendto --
+   ------------
+
+   function sendto
+     (socket : Socket_Descriptor;
+      buffer : System.Address;
+      length : size_t;
+      flags  : int;
+      to     : sockaddr) return ssize_t is
+   begin
+      return
+        lwip_sendto
+          (socket,
+           buffer,
+           length,
+           flags,
+           to,
+           socklen_t (sizeof_sockaddr_storage));
+   end sendto;
 
    ---------
    -- Set --
