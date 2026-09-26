@@ -1,7 +1,7 @@
 name = "espidf_netif"
-description = "Ada/ESP-IDF: network interface and sockets bindings"
-website = "https://github.com/godunko/espidf_netif"
 version = "0.1.0-dev"
+website = "https://github.com/godunko/espidf_netif"
+description = "Ada/ESP-IDF: network interface and sockets bindings"
 long-description = """
 Ada bindings for the ESP-IDF network interface abstraction (`esp_netif`) and the lwIP sockets API.
 
