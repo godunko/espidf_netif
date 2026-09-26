@@ -18,6 +18,7 @@ package ESPIDF.Sockets is
    function AF_INET6  return Address_Family is (10);
 
    type Socket_Type is new int with Convention => C;
+   --  Socket protocol types (TCP/UDP/RAW).
 
    function SOCK_STREAM return Socket_Type is (1);
    function SOCK_DGRAM  return Socket_Type is (2);
@@ -36,6 +37,7 @@ package ESPIDF.Sockets is
 
    type in_addr_t is new Interfaces.Unsigned_32 with Convention => C;
    INADDR_ANY : constant in_addr_t := 0;
+   --  0.0.0.0
 
    type in_port_t is new Interfaces.Unsigned_16 with Convention => C;
 
