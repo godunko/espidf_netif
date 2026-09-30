@@ -1,5 +1,5 @@
 name = "espidf_netif"
-version = "0.1.0-dev"
+version = "0.1.0"
 website = "https://github.com/godunko/espidf_netif"
 description = "Ada/ESP-IDF: network interface and sockets bindings"
 long-description = """
