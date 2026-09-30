@@ -25,4 +25,4 @@ generate_c = false
 generate_gpr = true
 
 [[depends-on]]
-espidf_event = "*"
+espidf_event = "^0.1.0"
